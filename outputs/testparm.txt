@@ -1,0 +1,85 @@
+# Global parameters
+[global]
+	netbios name = ROGER
+	printcap name = cups
+	server string = Samba Server Setup
+	smb passwd file = etc/samba/smbpasswd
+	workgroup = VASHILUG
+	idmap config * : backend = tdb
+	admin users = vedh
+	cups options = raw
+	include = /etc/samba/usershares.conf
+
+
+[homes]
+	browseable = No
+	comment = Home Directories
+	inherit acls = Yes
+	read only = No
+	valid users = %S %D%w%S
+
+
+[printers]
+	browseable = No
+	comment = All Printers
+	create mask = 0600
+	path = /var/tmp
+	printable = Yes
+
+
+[print$]
+	comment = Printer Drivers
+	create mask = 0664
+	directory mask = 0775
+	force group = printadmin
+	path = /var/lib/samba/drivers
+	write list = printadmin root
+
+
+[funny]
+	comment = Shared dir for Samba
+	invalid users = vedh
+	path = /srv
+	read only = No
+
+
+[Finance]
+	comment = Finance Dept
+	path = /Finance
+	read only = No
+	valid users = @finance vedh
+
+
+[Accounts]
+	comment = Accounts Dept
+	path = /Accounts
+	read only = No
+	valid users = @accounts vedh
+
+
+[HR]
+	comment = HR Dept
+	path = /HRD
+	read only = No
+	valid users = @hrd vedh
+
+
+[Public]
+	comment = Common Space
+	path = /Public
+	read list = @finance @accounts @hrd
+	read only = No
+
+
+[Dropbox]
+	comment = Anything to tell
+	path = /Dropbox
+	read only = No
+	write list = @common
+
+
+[pendrive]
+	comment = Pendrive Data
+	path = /mnt
+	root postexec = umount /mnt
+	root preexec = mount /dev/sdb1 /mnt

@@ -1,0 +1,4 @@
+drwxrwxr-x. 3 root accounts 95 Jun  7 22:42 Accounts/
+drwxrwxr-x. 2 root finance 80 Jun  8 00:08 Finance/
+drwxrwxr-x. 2 root hrd 28 May 20 23:37 HRD/
+drwxr-xr-x 2 root root 30 Jun  8 00:01 Public/

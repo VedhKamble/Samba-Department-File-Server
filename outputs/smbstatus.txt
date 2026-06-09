@@ -1,0 +1,11 @@
+
+Samba version 4.22.4
+PID     Username     Group        Machine                                   Protocol Version  Encryption           Signing              
+----------------------------------------------------------------------------------------------------------------------------------------
+3445    john         john         fe80::e6a8:2ffa:949d:d809 (ipv6:fe80::e6a8:2ffa:949d:d809:52793) SMB3_11           -                    partial(AES-128-GMAC)
+
+Service      pid     Machine       Connected at                     Encryption   Signing     
+---------------------------------------------------------------------------------------------
+IPC$         3445    fe80::e6a8:2ffa:949d:d809 Mon Jun  8 11:25:40 PM 2026 IST  -            -           
+
+

@@ -1,0 +1,92 @@
+# See smb.conf.example for a more detailed config file or
+# read the smb.conf manpage.
+# Run 'testparm' to verify the config is correct after
+# you modified it.
+#
+# Note:
+# SMB1 is disabled by default. This means clients without support for SMB2 or
+# SMB3 are no longer able to connect to smbd (by default).
+
+[global]
+	workgroup = VASHILUG
+	netbios name = ROGER 
+	smb passwd file = etc/samba/smbpasswd
+	server string = Samba Server Setup
+	admin users = vedh
+
+	printing = cups
+	printcap name = cups
+	load printers = yes
+	cups options = raw
+
+	# Install samba-usershares package for support
+	include = /etc/samba/usershares.conf
+
+[homes]
+	comment = Home Directories
+	valid users = %S, %D%w%S
+	browseable = No
+	read only = No
+	inherit acls = Yes
+
+[printers]
+	comment = All Printers
+	path = /var/tmp
+	printable = Yes
+	create mask = 0600
+	browseable = No
+
+[print$]
+	comment = Printer Drivers
+	path = /var/lib/samba/drivers
+	# printadmin is a local group
+	write list = printadmin root
+	force group = printadmin
+	create mask = 0664
+	directory mask = 0775
+
+[funny]
+	comment = Shared dir for Samba
+	path = /srv 
+	writeable = yes
+	browseable = yes
+	invalid users = vedh
+
+[Finance]
+	comment = Finance Dept
+	path = /Finance
+	writeable = yes
+	browseable = yes
+	valid users = @finance vedh
+
+[Accounts]
+	comment = Accounts Dept
+	path = /Accounts
+	writeable = yes
+	browseable = yes
+	valid users = @accounts vedh
+
+[HR]
+	comment = HR Dept
+	path = /HRD	
+	writeable = yes
+	browseable =yes
+	valid users = @hrd vedh
+[Public]
+	comment = Common Space
+	path = /Public
+	writeable = yes
+	browseable = yes
+	read list = @finance, @accounts, @hrd
+[Dropbox]
+	comment = Anything to tell
+	path = /Dropbox
+	writeable = yes
+	browseable = yes
+	write list = @common
+
+[pendrive]
+	comment = Pendrive Data
+	path = /mnt
+	root preexec = mount /dev/sdb1 /mnt
+	root postexec = umount /mnt

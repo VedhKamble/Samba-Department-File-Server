@@ -1,0 +1,6 @@
+vedh:1000:vedh
+richa:1002:
+rahul:1005:
+nik:1001:
+anjali:1003:
+john:1004:

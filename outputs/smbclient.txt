@@ -1,0 +1,15 @@
+Password for [VASHILUG\vedh]:
+
+	Sharename       Type      Comment
+	---------       ----      -------
+	print$          Disk      Printer Drivers
+	funny           Disk      Shared dir for Samba
+	Finance         Disk      Finance Dept
+	Accounts        Disk      Accounts Dept
+	HR              Disk      HR Dept
+	Public          Disk      Common Space
+	Dropbox         Disk      Anything to tell
+	pendrive        Disk      Pendrive Data
+	IPC$            IPC       IPC Service (Samba Server Setup)
+	vedh            Disk      Home Directories
+SMB1 disabled -- no workgroup available

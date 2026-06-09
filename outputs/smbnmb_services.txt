@@ -1,0 +1,36 @@
+● smb.service - Samba SMB Daemon
+     Loaded: loaded (/usr/lib/systemd/system/smb.service; disabled; preset: disabled)
+     Active: active (running) since Mon 2026-06-08 22:26:17 IST; 58s ago
+ Invocation: cfe3d2ee47714757b57bebb4d8ed5573
+       Docs: man:smbd(8)
+             man:samba(7)
+             man:smb.conf(5)
+   Main PID: 2663 (smbd)
+     Status: "smbd: ready to serve connections..."
+      Tasks: 3 (limit: 47557)
+     Memory: 7.2M (peak: 7.7M)
+        CPU: 61ms
+     CGroup: /system.slice/smb.service
+             ├─2663 /usr/sbin/smbd --foreground --no-process-group
+             ├─2666 /usr/sbin/smbd --foreground --no-process-group
+             └─2667 /usr/sbin/smbd --foreground --no-process-group
+
+Jun 08 22:26:16 vardan.com systemd[1]: Starting smb.service - Samba SMB Daemon...
+Jun 08 22:26:17 vardan.com systemd[1]: Started smb.service - Samba SMB Daemon.
+● nmb.service - Samba NMB Daemon
+     Loaded: loaded (/usr/lib/systemd/system/nmb.service; disabled; preset: disabled)
+     Active: active (running) since Mon 2026-06-08 22:26:17 IST; 2min 1s ago
+ Invocation: 69a06986c985492b8a523f2f6bff966f
+       Docs: man:nmbd(8)
+             man:samba(7)
+             man:smb.conf(5)
+   Main PID: 2670 (nmbd)
+     Status: "nmbd: ready to serve connections..."
+      Tasks: 1 (limit: 47557)
+     Memory: 3.2M (peak: 3.4M)
+        CPU: 60ms
+     CGroup: /system.slice/nmb.service
+             └─2670 /usr/sbin/nmbd --foreground --no-process-group
+
+Jun 08 22:26:17 vardan.com systemd[1]: Starting nmb.service - Samba NMB Daemon...
+Jun 08 22:26:17 vardan.com systemd[1]: Started nmb.service - Samba NMB Daemon.
