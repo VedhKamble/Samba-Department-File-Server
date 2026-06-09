@@ -8,34 +8,121 @@ role based access control between Linux server and Windows clients.
 The goal of this project was to build a small organization-style
 file server where different departments have isolated shared storage.
 
+# Samba Server Architecture
 
-## Architecture
+```
+                 Windows Client Machine
+                         |
+                         |
+                         |  SMB / CIFS Protocol
+                         |
+                         |
+                 Linux Samba Server
+                         |
+        ---------------------------------
+        |              |                |
+        |              |                |
+   Finance Share   Accounts Share    HR Share
+        |              |                |
+ finance group    accounts group     hrd group
+        |              |                |
+  john,richa      anjali,rahul     richa,anjali
 
-Windows Client
-       |
-       | SMB Protocol
-       |
-Linux Samba Server
-       |
-       | +---- Finance Share
-       |
-       | +---- Accounts Share
-       |
-       | +---- HR Share
-       |
-       | +---- Public Share
-       |
-       | +---- Dropbox Share
 
+                         |
+                    Public Share
+                         |
+                  Accessible Users
+```
+
+## Components
+
+### Linux Samba Server
+
+Responsible for:
+
+* Hosting shared directories
+* User authentication
+* Permission management
+* SMB communication with clients
+
+### Windows Client
+
+Used for:
+
+* Connecting to Samba shares
+* Testing user authentication
+* Verifying access permissions
+
+## Share Structure
+
+```
+/Finance
+   |
+   +-- Finance department files
+
+
+/Accounts
+   |
+   +-- Accounts department files
+
+
+/HRD
+   |
+   +-- HR department files
+
+
+/Public
+   |
+   +-- Common files for all users
+
+
+/Dropbox
+   |
+   +-- Upload-only shared area
+```
+
+## Security Model
+
+Access control is implemented using multiple layers:
+
+1. Linux users and groups
+
+2. Linux filesystem permissions
+
+3. Samba authentication
+
+4. Samba share restrictions
+
+5. SELinux Samba policies
+
+## User Access Flow
+
+```
+User Login
+     |
+     |
+Samba Authentication
+     |
+     |
+Check Share Permissions
+     |
+     |
+Check Linux File Permissions
+     |
+     |
+Allow / Deny Access
+```
 
 ## Technologies Used
 
-- RHEL Linux
-- Samba
-- SMB/CIFS
-- SELinux
-- FirewallD
-- Windows File Explorer
+* RHEL Linux
+* Samba Server
+* SMB/CIFS Protocol
+* SELinux
+* FirewallD
+* Windows File Explorer
+
 
 
 ## Implemented Features
@@ -51,89 +138,7 @@ Linux Samba Server
 - Firewall configuration
 
 
-## Users
-
-| User | Department |
-|-|-|
-| john | Accounts |
-| rahul | Finance |
-| anjali | Accounts |
-| richa | Finance + HR |
-| vedh | Administrator |
-
-
-## Shares
-
-| Share | Access |
-|-|-|
-| Finance | Finance group |
-| Accounts | Accounts group |
-| HR | HR group |
-| Public | Everyone |
-| Dropbox | Upload area |
-
-
-## Testing Evidence
-
-The outputs directory contains:
-- Samba users
-- Linux groups
-- Directory permissions
-- SMB client share discovery
-
-
-## Setup
-
-Run:
-chmod +x scripts/setup.sh
-./scripts/setup.sh
-
-Then place smb.conf:
-/etc/samba/smb.conf
-
-Restart:
-systemctl restart smb
-
-
-## Future Improvements
-
-- Samba AD Domain Controller
-- Backup automation
-- Audit logging
-- Web management panel
-- User quota management
-2. documentation/users-groups.md
-# Users and Groups
-
-The server uses Linux groups to control Samba access.
-
-Groups:
-1) Finance
-2) Accounts
-3) Hrd
-
-
-Example:
-
-Finance:
-- richa
-- john
-
-Accounts:
-- anjali
-- rahul
-
-Hrd:
-- richa
-- anjali
-
-
-The output files proving this configuration are stored in:
-
-outputs/linux-groups.txt
-
-
-3. documentation/testing.md
+ Documentation/testing.md
 # Testing Report
 
 ## Samba User Verification
@@ -167,22 +172,6 @@ ls -ld /HRD
 Output:
 outputs/share-permissions.txt
 
-4. documentation/architecture.md
-# Architecture
-
-
-                  Windows Client
-                         |
-                         | SMB
-                         |
-                     Samba Server
-                         |
-        +----------------+----------------+
-        |                |                |
-     Finance          Accounts            HR
-        |                |                |
-   finance grp     accounts grp        hrd grp
-
 
 Access is controlled using:
 
@@ -190,3 +179,33 @@ Access is controlled using:
 - Linux groups
 - Samba valid users
 - Samba write permissions
+
+## Testing Evidence
+
+The outputs directory contains:
+- Samba users
+- Linux groups
+- Directory permissions
+- SMB client share discovery
+
+
+## Setup
+
+Run:
+chmod +x scripts/setup.sh
+./scripts/setup.sh
+
+Then place smb.conf:
+/etc/samba/smb.conf
+
+Restart:
+systemctl restart smb
+
+
+## Future Improvements
+
+- Samba AD Domain Controller
+- Backup automation
+- Audit logging
+- Web management panel
+- User quota management
