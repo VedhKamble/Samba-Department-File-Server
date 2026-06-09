@@ -12,20 +12,20 @@ file server where different departments have isolated shared storage.
 ## Architecture
 
 Windows Client
-|
-| SMB Protocol
-|
+       |
+       | SMB Protocol
+       |
 Linux Samba Server
-|
-+---- Finance Share
-|
-+---- Accounts Share
-|
-+---- HR Share
-|
-+---- Public Share
-|
-+---- Dropbox Share
+       |
+       | +---- Finance Share
+       |
+       | +---- Accounts Share
+       |
+       | +---- HR Share
+       |
+       | +---- Public Share
+       |
+       | +---- Dropbox Share
 
 
 ## Technologies Used
@@ -108,25 +108,22 @@ systemctl restart smb
 The server uses Linux groups to control Samba access.
 
 Groups:
-
-finance
-accounts
-hrd
+1) Finance
+2) Accounts
+3) Hrd
 
 
 Example:
 
-finance:
+Finance:
 - richa
 - john
 
-
-accounts:
+Accounts:
 - anjali
 - rahul
 
-
-hrd:
+Hrd:
 - richa
 - anjali
 
@@ -175,26 +172,16 @@ outputs/share-permissions.txt
 
 
                   Windows Client
-
-                         |
                          |
                          | SMB
-
                          |
-
-                 Samba Server
-
+                     Samba Server
                          |
-
         +----------------+----------------+
-
         |                |                |
-
-     Finance          Accounts          HR
-
+     Finance          Accounts            HR
         |                |                |
-
-   finance grp     accounts grp      hrd grp
+   finance grp     accounts grp        hrd grp
 
 
 Access is controlled using:
